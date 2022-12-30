@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 import smtplib
 from termcolor import colored as cores
 import time
-import configparser
+import os
 
 
 
@@ -28,30 +28,17 @@ num_price = price.replace('R$', '')
 num_price = num_price.replace('.','')
 num_price = float(num_price)
 
-config = configparser.ConfigParser()
-config.read("config.ini")
-
 def send_email():
     with open('template.html', 'r') as html:
         template = Template(html.read())
         data = datetime.now().strftime('%d/%m/%Y')
         corpo_msg = template.substitute(nome='Diego Policarpo Ferreira da SIlva', data=data, descricao=title, preco=price, link=url) 
-    
-    try:
-        settings = config["SETTINGS"]
-    except:
-        settings = {}
-
-    API = settings.get("APIKEY",None)
-    from_email = settings.get("FROM",None)
-    to_emails = settings.get("TO","")
-    #senha = settings.get("SENHA")
 
     msg = MIMEMultipart()
     # Email que vai enviar
-    msg['from'] = from_email
+    msg['from'] = os.environ.get('FROM')
     # Email que vai receber
-    msg['to'] = to_emails  
+    msg['to'] = os.environ.get('TO')  
     # Titulo
     msg['subject'] = f'Monitoramento detectou o produto {title} abaixo do preço procurado.'
 
@@ -61,8 +48,8 @@ def send_email():
     
     smtp = smtplib.SMTP('smtp.gmail.com', 587)
     smtp.starttls()
-    smtp.login(from_email, 'bfaacjarcjmdezek')
-    smtp.sendmail(to_emails, from_email, msg.as_string())
+    smtp.login(os.environ.get('FROM'), os.environ.get('SENHA'))
+    smtp.sendmail(os.environ.get('TO'), os.environ.get('FROM'), msg.as_string())
 
 
 with smtplib.SMTP(host='smtp.gmail.com', port=587) as smtp:
