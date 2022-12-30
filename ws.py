@@ -40,7 +40,7 @@ def send_email():
     # Email que vai receber
     msg['to'] = os.environ.get('TO')  # TO Address
     # Titulo
-    msg['subject'] = f'Monitoramento detectou o produto {title} abaixo do preço procurado.'
+    msg['subject'] = f'Monitoramento detectou o produto {title} abaixo do preço procurado, no valor de R${num_price:.2f}!!!'
 
     corpo = MIMEText(corpo_msg, 'html')
     # Envia o corpo do email
