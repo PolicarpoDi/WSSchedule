@@ -45,7 +45,7 @@ def send_email():
     API = settings.get("APIKEY",None)
     from_email = settings.get("FROM",None)
     to_emails = settings.get("TO","")
-    senha = settings.get(str("SENHA"))
+    #senha = settings.get("SENHA")
 
     msg = MIMEMultipart()
     # Email que vai enviar
@@ -61,7 +61,7 @@ def send_email():
     
     smtp = smtplib.SMTP('smtp.gmail.com', 587)
     smtp.starttls()
-    smtp.login(from_email, senha)
+    smtp.login(from_email, 'bfaacjarcjmdezek')
     smtp.sendmail(to_emails, from_email, msg.as_string())
 
 
