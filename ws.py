@@ -48,7 +48,7 @@ def send_email():
     
     smtp = smtplib.SMTP('smtp.gmail.com', 587)
     smtp.starttls()
-    smtp.login(os.environ.get('FROM'), os.environ.get('SENHA'))
+    smtp.login(os.environ.get('FROM'), os.environ.get('PASSWORD'))
     smtp.sendmail(os.environ.get('FROM'), os.environ.get('TO'), msg.as_string())
     
 
@@ -58,7 +58,7 @@ with smtplib.SMTP(host='smtp.gmail.com', port=587) as smtp:
         try:
             send_email()
             env_from = os.environ.get('TO')
-            print(cores(f'Produto encontrado com sucesso!!!!', 'green'))
+            print(cores(f'Produto encontrado com sucesso!!!! O Valor dele atual é de R${num_price}', 'green'))
             print(f'E-mail sendo encaminhado para {env_from}')
             time.sleep(5)
             print('E-mail enviado com sucesso!.')

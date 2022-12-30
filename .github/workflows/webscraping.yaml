@@ -26,5 +26,5 @@ jobs:
         env:
           TO: ${{ secrets.EMAIL_DESTINATARIO }}
           FROM: ${{ secrets.EMAIL_REMETENTE }}
-          SENHA: ${{ secrets.SENHA_EMAIL }}
+          PASSWORD: ${{ secrets.SENHA_EMAIL }}
         run: python ws.py
