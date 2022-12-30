@@ -36,9 +36,9 @@ def send_email():
 
     msg = MIMEMultipart()
     # Email que vai enviar
-    msg['from'] = os.environ.get('FROM')
+    msg['from'] = os.environ.get('FROM') # My address
     # Email que vai receber
-    msg['to'] = os.environ.get('TO')  
+    msg['to'] = os.environ.get('TO')  # TO Address
     # Titulo
     msg['subject'] = f'Monitoramento detectou o produto {title} abaixo do preço procurado.'
 
@@ -49,15 +49,17 @@ def send_email():
     smtp = smtplib.SMTP('smtp.gmail.com', 587)
     smtp.starttls()
     smtp.login(os.environ.get('FROM'), os.environ.get('SENHA'))
-    smtp.sendmail(os.environ.get('TO'), os.environ.get('FROM'), msg.as_string())
+    smtp.sendmail(os.environ.get('FROM'), os.environ.get('TO'), msg.as_string())
+    
 
 
 with smtplib.SMTP(host='smtp.gmail.com', port=587) as smtp:
     if (num_price < 2800):
         try:
             send_email()
+            env_from = os.environ.get('TO')
             print(cores(f'Produto encontrado com sucesso!!!!', 'green'))
-            print('E-mail sendo encaminhado...')
+            print(f'E-mail sendo encaminhado para {env_from}')
             time.sleep(5)
             print('E-mail enviado com sucesso!.')
         except Exception as e:    
