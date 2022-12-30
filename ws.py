@@ -54,7 +54,7 @@ def send_email():
 
 
 with smtplib.SMTP(host='smtp.gmail.com', port=587) as smtp:
-    if (num_price < 2800):
+    if (num_price < 2570):
         try:
             send_email()
             env_from = os.environ.get('TO')
