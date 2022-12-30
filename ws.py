@@ -45,7 +45,7 @@ def send_email():
     API = settings.get("APIKEY",None)
     from_email = settings.get("FROM",None)
     to_emails = settings.get("TO","")
-    senha = settings.get("SENHA")
+    senha = settings.get(str("SENHA"))
 
     msg = MIMEMultipart()
     # Email que vai enviar
